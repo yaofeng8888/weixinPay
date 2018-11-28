@@ -44,6 +44,11 @@
             <artifactId>jdom</artifactId>
             <version>1.1</version>
         </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.2</version>
+        </dependency>
     </dependencies>
 
     <build>

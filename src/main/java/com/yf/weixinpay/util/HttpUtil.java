@@ -23,7 +23,7 @@ public class HttpUtil {
             connection.setDoOutput(true);
             connection.setConnectTimeout(CONNECT_TIMEOUT);
             connection.setReadTimeout(CONNECT_TIMEOUT);
-            if (contentType != null) {
+            if (contentType != null)
                 connection.setRequestProperty("content-type", contentType);
                 OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream(), DEFAULT_ENCODING);
                 if (data == null)
@@ -40,7 +40,6 @@ public class HttpUtil {
                     sb.append("\r\n");
                 }
                 return sb.toString();
-            }
         } catch (Exception e) {
             System.err.println("Error connection to "+ urlStr+":"+e.getMessage());
         }finally {

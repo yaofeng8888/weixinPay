@@ -1,5 +1,9 @@
 package com.yf.weixinpay.util;
 
+import org.jdom.JDOMException;
+import org.jdom.input.JDOMParseException;
+
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -92,7 +96,7 @@ public class PayCommonUtil {
         return res;
     }
 
-    public static String weixin_pay(String order_price,String body,String out_trade_no){
+    public static String weixin_pay(String order_price,String body,String out_trade_no)throws JDOMException,IOException{
         //账号信息
         String appid = PayConfigUtils.APP_ID;//appid;
         String mch_id = PayConfigUtils.MCH_ID;//商业号

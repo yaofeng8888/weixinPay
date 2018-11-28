@@ -91,7 +91,7 @@ public class ResultServlet extends HttpServlet {
             }
             BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(response.getOutputStream());
             bufferedOutputStream.write(resXml.getBytes());
-            bufferedOutputStream.flush();;
+            bufferedOutputStream.flush();
             bufferedOutputStream.close();
         }else {
             writeContent = "订单"+out_trade_no+"通知签名验证失败，支付失败";
