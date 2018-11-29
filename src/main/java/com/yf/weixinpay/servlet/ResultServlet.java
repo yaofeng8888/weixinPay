@@ -62,6 +62,7 @@ public class ResultServlet extends HttpServlet {
                 v = parameterValue.trim();
             }
             packgeParams.put(parameter, v);
+
         }
 
         //账号信息
