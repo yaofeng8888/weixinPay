@@ -76,6 +76,7 @@ public class PayCommonUtil {
             }
         }
         sb.append("</xml>");
+        System.out.println(sb.toString());
         return sb.toString();
     }
 

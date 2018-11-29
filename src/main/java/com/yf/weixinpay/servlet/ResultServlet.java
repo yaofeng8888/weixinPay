@@ -1,11 +1,13 @@
 package com.yf.weixinpay.util;
 
+import com.yf.weixinpay.websocket.Websocekt;
 import org.jdom.JDOMException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.websocket.Session;
 import javax.xml.bind.Element;
 import java.io.*;
 import java.util.*;
@@ -85,7 +87,13 @@ public class ResultServlet extends HttpServlet {
                 writeContent = "订单" + out_trade_no + "支付成功";
                 //通知微信，异步确认成功，必须写，不然会一直通知后台，八次后就任务交易失败，钱就退回到用户手中
                 resXml = "<xml>" + "<return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg>" + "</xml>";
-
+                //知道支付成功。通知页面，跳转到支付成功的页面  websocket
+                //找到这个订单对应的websocket
+//               Session session =  Websocekt.getAllClients().get(out_trade_no);//当前订单号所对应的websocekt链接
+//                if(session!=null){
+//                        session.getAsyncRemote().sendText("支付成功");
+//                }
+                    Websocekt.sendMessage(out_trade_no,"支付成功");
             } else {
                 writeContent = "订单" + out_trade_no + "支付失败:";
                 resXml = "<xml>" + "<return_code><![CDATA[FAIL]]></return_code><return_msg><![CDATA[报文为空]]></return_msg>" + "</xml>";
