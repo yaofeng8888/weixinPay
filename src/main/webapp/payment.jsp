@@ -9,9 +9,45 @@
 <html>
 <head>
     <title>Title</title>
+    <script type="text/javascript">
+        var websocekt = null;
+
+        function load() {//初始化websocekt
+            //获取订单号
+            var id = document.getElementById("oid").innerHTML;
+            //建立链接
+            if ('WebSocket' in window) {
+                websocekt = new WebSocket("ws://" + document.location.host + "/payment/websocket/" + id);
+
+                websocekt.onopen = function () {
+
+                }
+
+                websocekt.onclose = function () {
+
+                }
+
+                websocekt.onerror = function () {
+
+                }
+
+                websocekt.onmessage = function () {
+                location.href = "#"//需要跳转的页面
+                }
+            } else {
+                alert("浏览器不支持websocekt")
+            }
+            //设置监听
+
+
+        }
+
+        window.onload = load();
+    </script>
 </head>
 <body>
-当前是支付页面，订单号是${oid}<br>请扫码支付
+当前是支付页面，订单号是<span id="oid">${oid}</span><br>请扫码支付
 <img src="/payment/image">
+
 </body>
 </html>
