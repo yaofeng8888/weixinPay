@@ -1,8 +1,5 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
-
 <web-app>
+
   <servlet>
     <servlet-name>buy</servlet-name>
     <servlet-class>com.yf.weixinpay.servlet.BuyServlet</servlet-class>
@@ -11,6 +8,10 @@
     <servlet-name>image</servlet-name>
     <servlet-class>com.yf.weixinpay.servlet.ImageServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>result</servlet-name>
+    <servlet-class>com.yf.weixinpay.util.ResultServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>buy</servlet-name>
     <url-pattern>/payment/buy</url-pattern>
@@ -18,5 +19,9 @@
   <servlet-mapping>
     <servlet-name>buy</servlet-name>
     <url-pattern>/payment/image</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>result</servlet-name>
+    <url-pattern>/payment/result</url-pattern>
   </servlet-mapping>
 </web-app>

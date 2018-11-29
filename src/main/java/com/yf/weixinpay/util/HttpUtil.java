@@ -19,35 +19,34 @@ public class HttpUtil {
         BufferedReader reader = null;
         try {
             URL url = new URL(urlStr);
-            URLConnection connection = url.openConnection();
-            connection.setDoOutput(true);
-            connection.setConnectTimeout(CONNECT_TIMEOUT);
-            connection.setReadTimeout(CONNECT_TIMEOUT);
-            if (contentType != null)
-                connection.setRequestProperty("content-type", contentType);
-                OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream(), DEFAULT_ENCODING);
-                if (data == null)
-                    data = "";
-                writer.write(data);
-                writer.flush();
-                writer.close();
+            URLConnection conn = url.openConnection();
+            conn.setDoOutput(true);
+            conn.setConnectTimeout(CONNECT_TIMEOUT);
+            conn.setReadTimeout(CONNECT_TIMEOUT);
+            if(contentType != null)
+                conn.setRequestProperty("content-type", contentType);
+            OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream(), DEFAULT_ENCODING);
+            if(data == null)
+                data = "";
+            writer.write(data);
+            writer.flush();
+            writer.close();
 
-                reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), DEFAULT_ENCODING));
-                StringBuilder sb = new StringBuilder();
-                String line = null;
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line);
-                    sb.append("\r\n");
-                }
-                return sb.toString();
-        } catch (Exception e) {
-            System.err.println("Error connection to "+ urlStr+":"+e.getMessage());
-        }finally {
+            reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), DEFAULT_ENCODING));
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+                sb.append("\r\n");
+            }
+            return sb.toString();
+        } catch (IOException e) {
+            System.err.println("Error connecting to " + urlStr + ": " + e.getMessage());
+        } finally {
             try {
-                if(reader!=null)
+                if (reader != null)
                     reader.close();
-            }catch (IOException e){
-
+            } catch (IOException e) {
             }
         }
         return null;

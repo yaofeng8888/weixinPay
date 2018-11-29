@@ -17,31 +17,38 @@ import java.util.Map;
 public class XMLUtil {
 
     public static Map doXMLParse(String strxml) throws JDOMException,IOException{
-        strxml.replaceFirst("encoding = \".*\"","encoding=\"UTF-8\"");
-        if(null==strxml||"".equals(strxml)){
+        strxml = strxml.replaceFirst("encoding=\".*\"", "encoding=\"UTF-8\"");
+
+        if(null == strxml || "".equals(strxml)) {
             return null;
         }
-        Map map = new HashMap();
-        InputStream inputStream = new ByteArrayInputStream(strxml.getBytes("UTF-8"));
-        SAXBuilder saxBuilder = new SAXBuilder();
-        Document document = saxBuilder.build(inputStream);
-        Element root = document.getRootElement();
+
+        Map m = new HashMap();
+
+        InputStream in = new ByteArrayInputStream(strxml.getBytes("UTF-8"));
+        SAXBuilder builder = new SAXBuilder();
+        Document doc = builder.build(in);
+        Element root = doc.getRootElement();
         List list = root.getChildren();
         Iterator it = list.iterator();
-        while (it.hasNext()){
+        while(it.hasNext()) {
             Element e = (Element) it.next();
-            String key = e.getName();
-            String value = "";
-            List childreList = e.getChildren();
-            if(childreList.isEmpty()){
-                value = e.getTextNormalize();
-            }else {
-                value = XMLUtil.getChildrenText(childreList);
+            String k = e.getName();
+            String v = "";
+            List children = e.getChildren();
+            if(children.isEmpty()) {
+                v = e.getTextNormalize();
+            } else {
+                v = XMLUtil.getChildrenText(children);
             }
-            map.put(key,value);
+
+            m.put(k, v);
         }
-        inputStream.close();
-        return map;
+
+        //关闭流
+        in.close();
+
+        return m;
     }
 
     /**
