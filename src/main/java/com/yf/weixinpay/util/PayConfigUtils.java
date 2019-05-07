@@ -6,5 +6,5 @@ public interface PayConfigUtils {
      String API_KEY = "sbNCmlJnevqI36LrEaxFwcaT0hkGxFnc";//API密钥
      String UFDOOER_URL = "https://api.mch.weixin.qq.com/pay/unifiedorder";//微信的统一下单地址
      String NOTIFY_URL = "http://pic.chenjunbo.xin/payment/result";//回调地址
-     String CREATE_IP = "125.119.123.43";//发起IP
+     String CREATE_IP = "192.168.1.55";//发起IP
 }

@@ -1,5 +1,8 @@
-package com.yf.weixinpay.util;
+package com.yf.weixinpay.servlet;
 
+import com.yf.weixinpay.util.PayCommonUtil;
+import com.yf.weixinpay.util.PayConfigUtils;
+import com.yf.weixinpay.util.XMLUtil;
 import com.yf.weixinpay.websocket.Websocekt;
 import org.jdom.JDOMException;
 
@@ -29,7 +32,7 @@ public class ResultServlet extends HttpServlet {
     }
 
     public void weixin_notify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, JDOMException {
-        String writeContent = "默认支付失败";
+        String writeContent = "默认支付失败";//实际开发中删除
         String path = request.getServletContext().getRealPath("file");//实际开发中删除
         File file = new File(path);//实际开发中删除
         if (!file.exists()) {

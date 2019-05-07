@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
@@ -15,7 +16,7 @@ public class BuyServlet extends HttpServlet {
     private Random random = new Random();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        this.doPost(req, resp);
     }
 
     @Override
@@ -23,20 +24,21 @@ public class BuyServlet extends HttpServlet {
      //获取用户要购买的商品
         req.setCharacterEncoding("UTF-8");
         String body  =req.getParameter("body");
+        System.out.println(body);
         String price = "1"; //微信的价格单位是分
         String order = random.nextInt(1000000)+"";//商户订单号，实际开发参照自己的需求
      //生成二维码
         //1、先得到二维码的原始字符串
             //按照微信的要求生成字符串
-
         //2、将字符串生成二维码
         try {
         String result  = PayCommonUtil.weixin_pay(price,body,order);//获取到二维码的字符串
             System.out.println(result);
             BufferedImage image = ZxingUtil.createImage(result,300,300);
             //跳转到支付页面，显示二维码
-            req.setAttribute("image",image);
-            req.setAttribute("oid",order);
+            HttpSession session = req.getSession();
+            session.setAttribute("image",image);
+            session.setAttribute("oid",order);
             resp.sendRedirect("/payment.jsp");
         }catch (Exception e){
             e.printStackTrace();
