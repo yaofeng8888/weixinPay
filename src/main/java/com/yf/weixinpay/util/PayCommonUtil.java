@@ -118,7 +118,7 @@ public class PayCommonUtil {
        packageParams.put("nonce_str",nonce_str);
        packageParams.put("body",body);
        packageParams.put("out_trade_no",out_trade_no);
-       packageParams.put("order_price",order_price);
+       packageParams.put("total_fee",order_price);
        packageParams.put("spbill_create_ip",splill_create_ip);
        packageParams.put("notify_url",notify_url);
        packageParams.put("trade_type",trade_type);
