@@ -123,6 +123,7 @@ public class PayCommonUtil {
        packageParams.put("notify_url",notify_url);
        packageParams.put("trade_type",trade_type);
 
+
        String sign = PayCommonUtil.createSign("UTF-8",packageParams,key);
        packageParams.put("sign",sign);
 
