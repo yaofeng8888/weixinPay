@@ -17,7 +17,7 @@
     <url-pattern>/payment/buy</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>buy</servlet-name>
+    <servlet-name>image</servlet-name>
     <url-pattern>/payment/image</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
