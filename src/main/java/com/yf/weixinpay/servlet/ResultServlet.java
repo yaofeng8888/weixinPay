@@ -32,13 +32,14 @@ public class ResultServlet extends HttpServlet {
     }
 
     public void weixin_notify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, JDOMException {
+        System.out.println("接收来自微信的数据");
         String writeContent = "默认支付失败";//实际开发中删除
-        String path = request.getServletContext().getRealPath("file");//实际开发中删除
-        File file = new File(path);//实际开发中删除
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-        FileOutputStream fileOutputStream = new FileOutputStream(path + "/result.txt");//实际开发中删除
+//        String path = request.getServletContext().getRealPath("file");//实际开发中删除
+//        File file = new File(path);//实际开发中删除
+//        if (!file.exists()) {
+//            file.mkdirs();
+//        }
+//        FileOutputStream fileOutputStream = new FileOutputStream(path + "/result.txt");//实际开发中删除
         //读取参数
         InputStream inputStream;
         StringBuffer sb = new StringBuffer();
@@ -109,8 +110,8 @@ public class ResultServlet extends HttpServlet {
             writeContent = "订单"+out_trade_no+"通知签名验证失败，支付失败";
 
         }
-        fileOutputStream.write(writeContent.getBytes());//实际开发中删除
-        fileOutputStream.close();//实际开发中给删除
+//        fileOutputStream.write(writeContent.getBytes());//实际开发中删除
+//        fileOutputStream.close();//实际开发中给删除
     }
 
 }

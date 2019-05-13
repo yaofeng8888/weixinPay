@@ -10,7 +10,7 @@
   </servlet>
   <servlet>
     <servlet-name>result</servlet-name>
-    <servlet-class>com.yf.weixinpay.util.ResultServlet</servlet-class>
+    <servlet-class>com.yf.weixinpay.servlet.ResultServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>buy</servlet-name>

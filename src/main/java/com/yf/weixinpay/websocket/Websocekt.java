@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-@ServerEndpoint("/websocekt/{id}")
+@ServerEndpoint("/websocket/{id}")
 public class Websocekt {
     private String id;//记录订单号
     private Session session;//当前的链接

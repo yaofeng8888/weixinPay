@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>Title</title>
@@ -17,7 +18,7 @@
             var id = document.getElementById("oid").innerHTML;
             //建立链接
             if ('WebSocket' in window) {
-                websocekt = new WebSocket("ws://" + document.location.host + "/payment/websocket/" + id);
+                websocekt = new WebSocket("ws://" + document.location.host + "/websocket/" + id);
 
                 websocekt.onopen = function () {
 
@@ -31,23 +32,29 @@
 
                 }
 
-                websocekt.onmessage = function () {
-                location.href = "#"//需要跳转的页面
+                websocekt.onmessage = function (event) {
+                    console.log("返回数据");
+                    console.log(event);
+                    fillData(event.data);
+                    location.href = "#"//需要跳转的页面
                 }
             } else {
                 alert("浏览器不支持websocekt")
             }
-            //设置监听
 
+            //设置监听
+            function fillData(data) {
+                document.getElementById("message").innerHTML = data;
+            }
 
         }
 
-        window.onload = load();
+        // window.onload = load();
     </script>
 </head>
-<body>
+<body onload="load()">
 当前是支付页面，订单号是<span id="oid">${oid}</span><br>请扫码支付
 <img src="/payment/image">
-
+<span id="message"></span>
 </body>
 </html>

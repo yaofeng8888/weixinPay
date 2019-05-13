@@ -38,6 +38,13 @@
             <artifactId>javase</artifactId>
             <version>3.3.2</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.servlet.jsp.jstl/jstl -->
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+
         <!--用于解析xml数据，微信接受和返回的是xml文件-->
         <dependency>
             <groupId>org.jdom</groupId>
