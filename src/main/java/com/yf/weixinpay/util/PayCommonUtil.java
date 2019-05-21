@@ -89,12 +89,26 @@ public class PayCommonUtil {
 
     public static String buildRandom(int length) {
         String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        String res = "";
-        for (int i = 0; i < length; i++) {
-            Random rd = new Random();
-            res += chars.indexOf(rd.nextInt(chars.length() - 1));
+        Random random=new Random();
+        StringBuffer sb=new StringBuffer();
+        for(int i=0; i<length; ++i){
+            //从62个的数字或字母中选择
+            int number=random.nextInt(62);
+            //将产生的数字通过length次承载到sb中
+            sb.append(chars.charAt(number));
         }
-        return res;
+        return sb.toString();
+    }
+
+    public static String buildRandomNumber(int length) {
+        String chars = "0123456789";
+        Random random=new Random();
+        StringBuffer sb=new StringBuffer();
+        for (int i = 0; i < length; i++) {
+            int number=random.nextInt(10);
+            sb.append(chars.charAt(number));
+        }
+        return sb.toString();
     }
 
     public static String weixin_pay(String order_price,String body,String out_trade_no)throws JDOMException,IOException{
@@ -133,5 +147,42 @@ public class PayCommonUtil {
        Map map = XMLUtil.doXMLParse(resXML);
         String urlCode = (String) map.get("code_url");
         return urlCode;
+    }
+
+    public static String weixin_refund(String total_fee,String refund_fee,String out_trade_no,String refund_desc){
+        //账号信息
+        String appid = PayConfigUtils.APP_ID;//appid;
+        String mch_id = PayConfigUtils.MCH_ID;//商业号
+        String key = PayConfigUtils.API_KEY;//key
+
+        String currTime =  PayCommonUtil.getCurrTime();
+        String strTime = currTime.substring(8,currTime.length());
+        String strRandom = PayCommonUtil.buildRandom(4);
+        String nonce_str = strTime+strRandom;
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        Date date = new Date();
+        String format = dateFormat.format(date);
+        String string = buildRandomNumber(50);
+        String out_refund_no = format+string;
+
+        SortedMap<Object,Object> packageParams = new TreeMap<Object,Object>();
+        packageParams.put("appid",appid);
+        packageParams.put("mch_id",mch_id);
+        packageParams.put("nonce_str",nonce_str);
+        packageParams.put("out_trade_no",out_trade_no);
+        packageParams.put("out_refund_no",out_refund_no);
+        packageParams.put("total_fee",total_fee);
+        packageParams.put("refund_fee",refund_fee);
+//        packageParams.put("refund_desc",refund_desc);
+
+        String sign = PayCommonUtil.createSign("UTF-8",packageParams,key);
+
+        packageParams.put("sign",sign);
+
+        String requestXML = PayCommonUtil.getRequestXml(packageParams);
+        String resXML = HttpUtil.postData(PayConfigUtils.UFDOOER_URL,requestXML);
+
+        return resXML;
     }
 }
